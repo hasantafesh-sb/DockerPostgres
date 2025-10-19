@@ -2,6 +2,14 @@
 
 Simple Docker setup for PostgreSQL and Redis databases.
 
+## Environment Variables
+
+Create a `.env` file in the project root with these variables:
+
+- POSTGRES_USER=postgres
+- POSTGRES_PASSWORD=password
+- POSTGRES_DB=database
+
 ## Quick Start
 
 1. **Start the services**:
