@@ -1,4 +1,4 @@
-FROM redis:7-alpine
+FROM redis:latest
 
 RUN mkdir -p /usr/local/etc/redis
 RUN mkdir -p /data && chown redis:redis /data
