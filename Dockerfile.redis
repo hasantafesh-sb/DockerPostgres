@@ -1,4 +1,4 @@
-FROM redis:latest
+FROM redis:8.2.2
 
 RUN mkdir -p /usr/local/etc/redis
 RUN mkdir -p /data && chown redis:redis /data
