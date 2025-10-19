@@ -1,22 +1,7 @@
 FROM postgres:15
 
-# Set environment variables
-ENV POSTGRES_DB=db
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=13456789
-
-# Create custom initialization script directory
 RUN mkdir -p /docker-entrypoint-initdb.d
-
-# Copy any custom initialization scripts (optional)
-# COPY ./init-scripts/ /docker-entrypoint-initdb.d/
-
-# Set proper permissions
 RUN chmod -R 755 /docker-entrypoint-initdb.d
-
-# Expose PostgreSQL port
 EXPOSE 5432
-
-# Health check
 HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
   CMD pg_isready -U $POSTGRES_USER -d $POSTGRES_DB || exit 1

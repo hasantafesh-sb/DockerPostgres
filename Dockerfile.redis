@@ -1,28 +1,9 @@
 FROM redis:7-alpine
 
-# Set Redis configuration
-ENV REDIS_PASSWORD=""
-ENV REDIS_MAXMEMORY="256mb"
-ENV REDIS_MAXMEMORY_POLICY="allkeys-lru"
-
-# Create Redis configuration directory
 RUN mkdir -p /usr/local/etc/redis
-
-# Copy custom Redis configuration (optional)
-# COPY ./redis.conf /usr/local/etc/redis/redis.conf
-
-# Create data directory
 RUN mkdir -p /data && chown redis:redis /data
-
-# Switch to redis user
 USER redis
-
-# Expose Redis port
 EXPOSE 6379
-
-# Health check
 HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
   CMD redis-cli ping || exit 1
-
-# Start Redis server with custom configuration
-CMD ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+CMD ["redis-server"]
