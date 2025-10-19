@@ -2,8 +2,10 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest
-    container_name: my-postgres
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: postgres-container
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -13,6 +15,26 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - database-network
+
+  redis:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis
+    container_name: redis-container
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - database-network
 
 volumes:
   pgdata:
+  redis_data:
+
+networks:
+  database-network:
+    driver: bridge
